@@ -199,6 +199,10 @@ RUN sudo apt-get update && \
     sudo apt-get update && \
     sudo apt-get install -y kubectl
 
+RUN sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    sudo unzip awscliv2.zip && \
+    sudo ./aws/install
+
 #RUN sudo apt-get install -y dialog apt-utils openssh-server && \
 #    sudo service start ssh
 #RUN nohup bash -c "/opt/bin/start-xvfb.sh &" && sleep 5
@@ -207,4 +211,4 @@ RUN sudo apt-get update && \
 
 #RUN nohup bash -c "/opt/bin/start-novnc.sh &" && sleep 5
 
-CMD nohup bash -c "/opt/bin/start-xvfb.sh &" && sleep 5 && nohup bash -c "/opt/bin/start-vnc.sh &" && sleep 5 && nohup bash -c "/opt/bin/start-novnc.sh &" && sleep 5 && DISAPLY=:99 xterm -sb -rightbar -geometry 118x33+1+1 -fa 'Monospace' -fs 14 -e /bin/bash -l -c "tmux new-session -s session -n window"
+CMD nohup bash -c "/opt/bin/start-xvfb.sh &" && sleep 5 && nohup bash -c "/opt/bin/start-vnc.sh &" && sleep 5 && nohup bash -c "/opt/bin/start-novnc.sh &" && sleep 5 && DISAPLY=:99 xterm -sb -rightbar -geometry 118x33+1+1 -fa 'Monospace' -fs 14 -e /bin/bash -l -c "cd ~ && tmux new-session -s session -n window"
