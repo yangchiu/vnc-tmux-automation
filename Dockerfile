@@ -211,4 +211,10 @@ RUN sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "aws
 
 #RUN nohup bash -c "/opt/bin/start-novnc.sh &" && sleep 5
 
+COPY requirements.txt ${HOME}/requirements.txt
+
+RUN pip install -r ${HOME}/requirements.txt
+
+RUN export PATH="${HOME}/.local/bin:$PATH"
+
 CMD nohup bash -c "/opt/bin/start-xvfb.sh &" && sleep 5 && nohup bash -c "/opt/bin/start-vnc.sh &" && sleep 5 && nohup bash -c "/opt/bin/start-novnc.sh &" && sleep 5 && DISAPLY=:99 xterm -sb -rightbar -geometry 118x33+1+1 -fa 'Monospace' -fs 14 -e /bin/bash -l -c "cd ~ && tmux new-session -s session -n window"
