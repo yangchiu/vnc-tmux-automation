@@ -46,7 +46,7 @@ def attach_volume(context):
 
 @then('ssh into node')
 def ssh_into_node(context):
-    cmd = "ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-85-142-48.compute-1.amazonaws.com"
+    cmd = "ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-205-245-146.compute-1.amazonaws.com"
     exec_cmd(context, cmd)
     time.sleep(5)
     if 'ubuntu@ip-10-0-1-213' not in get_cmd_return(context):
@@ -78,14 +78,14 @@ def expect_volume_actual_size(context):
 
 @then('stop node')
 def stop_node(context):
-    cmd = "aws ec2 stop-instances --instance-ids i-0121d0c92d30f8888"
+    cmd = "aws ec2 stop-instances --instance-ids i-0857055f0ac6f5f9e"
     exec_cmd(context, cmd)
 
 
-@then('expect volume robustness unknown')
-def expect_volume_robustness_unknown(context):
+@then('expect volume robustness degraded')
+def expect_volume_robustness_degraded(context):
     cmd = "curl --header \"Content-Type: application/json\" --request GET " \
           "http://localhost:8080/v1/volumes/test-1"
     exec_cmd(context, cmd)
-    if '"accessMode":"rwo"' not in get_cmd_return(context):
-        raise RuntimeError('expect volume actual size')
+    if '"state":"attached"' not in get_cmd_return(context):
+        raise RuntimeError('expect volume degraded')

@@ -17,3 +17,5 @@ docker run -d -p 7900:7900 \
 docker container stop vnc && docker container rm vnc
 
 /home/seluser/.local/bin/behave
+
+kill $(ps aux | grep 'kubectl kubectl port-forward' | awk '{print $2}')

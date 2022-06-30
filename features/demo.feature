@@ -12,4 +12,4 @@ Feature: demo feature
     Then expect volume actual size
 
     Then stop node
-    Then expect volume robustness unknown
+    Then expect volume robustness degraded
